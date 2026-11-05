@@ -1,0 +1,23 @@
+# This is a Spack Environment file.
+#
+# It describes a set of packages to be installed, along with
+# configuration settings.
+spack:
+  # add package specs to the `specs` list
+  specs:
+  - ucx+mlx5_dv+rc+rdmacm+verbs ^rdma-core
+  - mpich device=ch4 netmod=ucx ^ucx+mlx5_dv+rc+rdmacm+verbs
+  - osu-micro-benchmarks ^mpich device=ch4 netmod=ucx
+  view: true
+  concretizer:
+    unify: true
+  packages:
+    gcc:
+      externals:
+      - spec: gcc@8.5.0 languages:='c,c++,fortran'
+        prefix: /usr
+        extra_attributes:
+          compilers:
+            c: /usr/bin/gcc
+            cxx: /usr/bin/g++
+            fortran: /usr/bin/gfortran

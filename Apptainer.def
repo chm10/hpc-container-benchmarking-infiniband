@@ -1,0 +1,157 @@
+# NOTE: this definition file depends on features only available in
+# Singularity 3.2 and later.
+BootStrap: docker
+From: ubuntu:24.04
+Stage: devel
+%post
+    . /.singularity.d/env/10-docker*.sh
+
+%post
+    cd /
+    set -e
+
+%post
+    apt-get update -y
+    DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
+        autoconf \
+        automake \
+        binutils-dev \
+        bison \
+        build-essential \
+        ca-certificates \
+        file \
+        flex \
+        git \
+        ibverbs-providers \
+        libhwloc-dev \
+        libibverbs-dev \
+        libnuma-dev \
+        libpciaccess-dev \
+        librdmacm-dev \
+        libtool \
+        libxml2-dev \
+        libzstd-dev \
+        m4 \
+        pkg-config \
+        python3 \
+        wget \
+        zlib1g-dev
+    rm -rf /var/lib/apt/lists/*
+
+# GNU compiler
+%post
+    apt-get update -y
+    DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
+        g++ \
+        gcc \
+        gfortran
+    rm -rf /var/lib/apt/lists/*
+
+# UCX version 1.22.0
+%post
+    apt-get update -y
+    DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
+        binutils-dev \
+        file \
+        libnuma-dev \
+        make \
+        wget
+    rm -rf /var/lib/apt/lists/*
+%post
+    cd /
+    mkdir -p /var/tmp && wget -q -nc -P /var/tmp https://github.com/openucx/ucx/releases/download/v1.22.0/ucx-1.22.0.tar.gz
+    mkdir -p /var/tmp && tar -x -f /var/tmp/ucx-1.22.0.tar.gz -C /var/tmp -z
+    cd /var/tmp/ucx-1.22.0 &&   ./configure --prefix=/usr/local/ucx --disable-compiler-warnings --disable-static --with-mlx5-dv --with-rdmacm --with-verbs --without-cuda
+    make -j$(nproc)
+    make -j$(nproc) install
+    rm -rf /var/tmp/ucx-1.22.0 /var/tmp/ucx-1.22.0.tar.gz
+%environment
+    export CPATH=/usr/local/ucx/include:$CPATH
+    export LD_LIBRARY_PATH=/usr/local/ucx/lib:$LD_LIBRARY_PATH
+    export LIBRARY_PATH=/usr/local/ucx/lib:$LIBRARY_PATH
+    export PATH=/usr/local/ucx/bin:$PATH
+%post
+    export CPATH=/usr/local/ucx/include:$CPATH
+    export LD_LIBRARY_PATH=/usr/local/ucx/lib:$LD_LIBRARY_PATH
+    export LIBRARY_PATH=/usr/local/ucx/lib:$LIBRARY_PATH
+    export PATH=/usr/local/ucx/bin:$PATH
+
+# MPICH version 5.0.2
+%post
+    apt-get update -y
+    DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
+        file \
+        gzip \
+        make \
+        openssh-client \
+        perl \
+        tar \
+        wget
+    rm -rf /var/lib/apt/lists/*
+%post
+    cd /
+    mkdir -p /var/tmp && wget -q -nc -P /var/tmp https://www.mpich.org/static/downloads/5.0.2/mpich-5.0.2.tar.gz
+    mkdir -p /var/tmp && tar -x -f /var/tmp/mpich-5.0.2.tar.gz -C /var/tmp -z
+    cd /var/tmp/mpich-5.0.2 &&   ./configure --prefix=/usr/local/mpich --with-ucx=/usr/local/ucx --without-bfd
+    make -j$(nproc)
+    make -j$(nproc) install
+    echo "/usr/local/mpich/lib" >> /etc/ld.so.conf.d/hpccm.conf && ldconfig
+    rm -rf /var/tmp/mpich-5.0.2 /var/tmp/mpich-5.0.2.tar.gz
+%environment
+    export PATH=/usr/local/mpich/bin:$PATH
+%post
+    export PATH=/usr/local/mpich/bin:$PATH
+
+# https://mvapich.cse.ohio-state.edu/download/mvapich/osu-micro-benchmarks-7.5.2.tar.gz
+%post
+    cd /
+    mkdir -p /var/tmp && wget -q -nc -P /var/tmp https://mvapich.cse.ohio-state.edu/download/mvapich/osu-micro-benchmarks-7.5.2.tar.gz
+    mkdir -p /var/tmp && tar -x -f /var/tmp/osu-micro-benchmarks-7.5.2.tar.gz -C /var/tmp -z
+    cd /var/tmp/osu-micro-benchmarks-7.5.2 &&  CC=/usr/local/mpich/bin/mpicc CFLAGS="-O3 -fPIC" CXX=/usr/local/mpich/bin/mpicxx CXXFLAGS="-O3 -fPIC" ./configure --prefix=/usr/local/osu
+    make -j$(nproc)
+    make -j$(nproc) install
+    rm -rf /var/tmp/osu-micro-benchmarks-7.5.2 /var/tmp/osu-micro-benchmarks-7.5.2.tar.gz
+BootStrap: docker
+From: ubuntu:24.04
+%post
+    . /.singularity.d/env/10-docker*.sh
+
+%post
+    apt-get update -y
+    DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
+        ca-certificates \
+        ibverbs-providers \
+        libbinutils \
+        libhwloc15 \
+        libibverbs1 \
+        libnuma1 \
+        libpciaccess0 \
+        librdmacm1 \
+        libxml2 \
+        libzstd1 \
+        zlib1g
+    rm -rf /var/lib/apt/lists/*
+
+%files from devel
+    /usr/local/ucx /usr/local/ucx
+
+%files from devel
+    /usr/local/mpich /usr/local/mpich
+
+%files from devel
+    /usr/local/osu /usr/local/osu
+
+%post
+    cd /
+    echo "/usr/local/ucx/lib" > /etc/ld.so.conf.d/hpc.conf
+    echo "/usr/local/mpich/lib" >> /etc/ld.so.conf.d/hpc.conf
+    ldconfig
+
+%environment
+    export LD_LIBRARY_PATH=/usr/local/mpich/lib:/usr/local/ucx/lib:$LD_LIBRARY_PATH
+    export PATH=/usr/local/mpich/bin:/usr/local/ucx/bin:/usr/local/osu/libexec/osu-micro-benchmarks:/usr/local/osu/libexec/osu-micro-benchmarks/mpi/pt2pt:/usr/local/osu/libexec/osu-micro-benchmarks/mpi/collective:/usr/local/osu/libexec/osu-micro-benchmarks/mpi/one-sided:$PATH
+    export UCX_TLS=rc_mlx5,ud_mlx5,rc,ud,sm,self
+%post
+    export LD_LIBRARY_PATH=/usr/local/mpich/lib:/usr/local/ucx/lib:$LD_LIBRARY_PATH
+    export PATH=/usr/local/mpich/bin:/usr/local/ucx/bin:/usr/local/osu/libexec/osu-micro-benchmarks:/usr/local/osu/libexec/osu-micro-benchmarks/mpi/pt2pt:/usr/local/osu/libexec/osu-micro-benchmarks/mpi/collective:/usr/local/osu/libexec/osu-micro-benchmarks/mpi/one-sided:$PATH
+    export UCX_TLS=rc_mlx5,ud_mlx5,rc,ud,sm,self

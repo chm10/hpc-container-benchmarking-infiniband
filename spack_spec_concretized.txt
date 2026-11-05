@@ -1,0 +1,39 @@
+[+]  ezabsxj  mpich@5.0.2~argobots~cuda~fortran~hcoll+hwloc+hydra~level_zero+libxml2~mpi5-abi+pci~rocm+romio~slurm~vci~verbs+wrapperrpath~xpmem build_system=autotools datatype-engine=auto device=ch4 netmod=ucx pmi=default platform=linux os=ubuntu26.04 target=zen4 %c,cxx=gcc@15.2.0
+[+]  op4ijeg      ^compiler-wrapper@1.1.0 build_system=generic platform=linux os=ubuntu26.04 target=zen4
+[+]  qygsom7      ^findutils@4.10.0 build_system=autotools patches=440b954 platform=linux os=ubuntu26.04 target=zen4 %c=gcc@15.2.0
+[+]  c3ybaws          ^gettext@1.0+bzip2+curses+git~libunistring+libxml2+pic+shared+tar+xz build_system=autotools platform=linux os=ubuntu26.04 target=zen4 %c,cxx=gcc@15.2.0
+[+]  rtlbty6              ^tar@1.35 build_system=autotools patches=85cb6b4 zip=pigz platform=linux os=ubuntu26.04 target=zen4 %c=gcc@15.2.0
+[+]  fcybtkm                  ^pigz@2.8 build_system=makefile platform=linux os=ubuntu26.04 target=zen4 %c=gcc@15.2.0
+[e]  7cgzni7      ^gcc@15.2.0+binutils+bootstrap+futex~graphite+libsanitizer~mold~nvptx~piclibs~profiled~strip build_system=autotools build_type=Release languages:='c,c++,fortran' platform=linux os=ubuntu26.04 target=x86_64
+[+]  5gl4xy3      ^gcc-runtime@15.2.0 build_system=generic platform=linux os=ubuntu26.04 target=zen4
+[e]  jhfwru7      ^glibc@2.43 build_system=autotools platform=linux os=ubuntu26.04 target=x86_64
+[+]  qvfmquv      ^gmake@4.4.1~guile build_system=generic platform=linux os=ubuntu26.04 target=zen4 %c=gcc@15.2.0
+[+]  6h52y36      ^hwloc@2.13.0~cairo~cuda~gl~level_zero~libudev+libxml2~nvml~opencl+pci~rocm build_system=autotools libs:=shared,static patches=b4db98b platform=linux os=ubuntu26.04 target=zen4 %c,cxx=gcc@15.2.0
+[+]  5snvfwx          ^ncurses@6.6~symlinks+termlib abi=none build_system=autotools patches=7a351bc platform=linux os=ubuntu26.04 target=zen4 %c,cxx=gcc@15.2.0
+[+]  jfdjrbd      ^libpciaccess@0.17 build_system=autotools platform=linux os=ubuntu26.04 target=zen4 %c=gcc@15.2.0
+[+]  xykusto          ^util-macros@1.20.2 build_system=autotools platform=linux os=ubuntu26.04 target=zen4
+[+]  ajeu4y6      ^libxml2@2.15.3+pic~python+shared build_system=autotools platform=linux os=ubuntu26.04 target=zen4 %c=gcc@15.2.0
+[+]  6hllyti          ^libiconv@1.18 build_system=autotools libs:=shared,static platform=linux os=ubuntu26.04 target=zen4 %c=gcc@15.2.0
+[+]  wt43b7v          ^xz@5.8.3~pic build_system=autotools libs:=shared,static platform=linux os=ubuntu26.04 target=zen4 %c=gcc@15.2.0
+[+]  atdpyxf          ^zlib-ng@2.3.3+compat+new_strategies+opt+pic+shared build_system=autotools platform=linux os=ubuntu26.04 target=zen4 %c,cxx=gcc@15.2.0
+[+]  dlzaplc      ^pkgconf@2.5.1 build_system=autotools platform=linux os=ubuntu26.04 target=zen4 %c=gcc@15.2.0
+[+]  ythssv2      ^python@3.14.5+bz2+ctypes+dbm~debug~freethreading+libxml2+lzma~optimizations+pic+pyexpat+pythoncmd+readline+shared+sqlite3+ssl~static~tests~tkinter+uuid+zlib+zstd build_system=generic platform=linux os=ubuntu26.04 target=zen4 %c,cxx=gcc@15.2.0
+[+]  63ji5fz          ^bzip2@1.0.8~debug~pic+shared build_system=generic platform=linux os=ubuntu26.04 target=zen4 %c=gcc@15.2.0
+[+]  eskbrqs              ^diffutils@3.12 build_system=autotools platform=linux os=ubuntu26.04 target=zen4 %c=gcc@15.2.0
+[+]  zib55s6          ^expat@2.8.5+libbsd+pic build_system=autotools platform=linux os=ubuntu26.04 target=zen4 %c,cxx=gcc@15.2.0
+[+]  h72fv53              ^libbsd@0.12.2 build_system=autotools platform=linux os=ubuntu26.04 target=zen4 %c=gcc@15.2.0
+[+]  7z2yxgj                  ^libmd@1.1.0 build_system=autotools platform=linux os=ubuntu26.04 target=zen4 %c=gcc@15.2.0
+[+]  mbcivsd          ^gdbm@1.26 build_system=autotools platform=linux os=ubuntu26.04 target=zen4 %c=gcc@15.2.0
+[+]  vfjcn5k          ^libffi@3.5.2 build_system=autotools platform=linux os=ubuntu26.04 target=zen4 %c,cxx=gcc@15.2.0
+[+]  4sp673z          ^openssl@3.6.1~docs+shared build_system=generic certs=mozilla platform=linux os=ubuntu26.04 target=zen4 %c,cxx=gcc@15.2.0
+[+]  iy2i4zh              ^ca-certificates-mozilla@2026-05-14 build_system=generic platform=linux os=ubuntu26.04 target=zen4
+[+]  b4u6eyk              ^perl@5.42.2+cpanm+opcode+open+shared+threads build_system=generic platform=linux os=ubuntu26.04 target=zen4 %c=gcc@15.2.0
+[+]  pyahl65                  ^berkeley-db@18.1.40+cxx~docs+stl build_system=autotools patches=26090f4,b231fcc platform=linux os=ubuntu26.04 target=zen4 %c,cxx=gcc@15.2.0
+[+]  hekk2o2                  ^less@692 build_system=autotools platform=linux os=ubuntu26.04 target=zen4 %c=gcc@15.2.0
+[+]  4cebfnw          ^readline@8.3 build_system=autotools patches=21f0a03,72dee13,e273643 platform=linux os=ubuntu26.04 target=zen4 %c=gcc@15.2.0
+[+]  arpscta          ^sqlite@3.53.1+column_metadata+fts+rtree build_system=autotools platform=linux os=ubuntu26.04 target=zen4 %c=gcc@15.2.0
+[+]  npgtmym          ^util-linux-uuid@2.41 build_system=autotools platform=linux os=ubuntu26.04 target=zen4 %c=gcc@15.2.0
+[+]  n4ubps7          ^zstd@1.5.7+programs build_system=makefile compression:=none libs:=shared,static platform=linux os=ubuntu26.04 target=zen4 %c,cxx=gcc@15.2.0
+[+]  kmvdyvn      ^ucx@1.22.0~assertions~backtrace_detail~cma~cuda~dc~debug~dm+examples~gdrcopy~gtest~ib_hw_tm~java~knem~logging~mlx5_dv+openmp+optimizations~parameter_checking+pic~rc~rdmacm~rocm~thread_multiple~ucg~ud~verbs~vfs~xpmem build_system=autotools libs:=shared,static opt=3 simd:=auto platform=linux os=ubuntu26.04 target=zen4 %c,cxx=gcc@15.2.0
+[+]  skw4zfu  osu-micro-benchmarks@7.5.2~cuda~graphing~papi~rocm build_system=autotools platform=linux os=ubuntu26.04 target=zen4 %c,cxx=gcc@15.2.0
+
